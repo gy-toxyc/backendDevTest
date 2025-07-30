@@ -1,15 +1,15 @@
-package com.inditex.products.infrastructure.api.controller.advicer;
+package com.inditex.products.infrastructure.api.advice;
 
 import com.inditex.products.domain.exceptions.ExternalServerException;
 import com.inditex.products.domain.exceptions.InternalServerException;
 import com.inditex.products.domain.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class ControllerAdvicer {
+@RestControllerAdvice
+public class ControllerAdvice {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
