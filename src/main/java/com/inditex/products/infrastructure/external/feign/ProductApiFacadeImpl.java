@@ -25,11 +25,11 @@ public class ProductApiFacadeImpl implements ProductApiFacade {
         try {
             return mapper.toMO(feignClient.getProductDetail(productId));
         } catch (FeignException.NotFound e) {
-            throw new ResourceNotFoundException("Not Found");
+            throw new ResourceNotFoundException();
         } catch (FeignException e) {
-            throw new ExternalServerException("External Server Error");
+            throw new ExternalServerException();
         } catch (Exception e) {
-            throw new InternalServerException("Internal Server Error");
+            throw new InternalServerException();
         }
     }
 
@@ -38,11 +38,11 @@ public class ProductApiFacadeImpl implements ProductApiFacade {
         try {
             return feignClient.getSimilarIds(productId);
         } catch (FeignException.NotFound e) {
-            throw new ResourceNotFoundException("Not Found");
+            throw new ResourceNotFoundException();
         } catch (FeignException e) {
-            throw new ExternalServerException("External Server Error");
+            throw new ExternalServerException();
         } catch (Exception e) {
-            throw new InternalServerException("Internal Server Error");
+            throw new InternalServerException();
         }
     }
 }
