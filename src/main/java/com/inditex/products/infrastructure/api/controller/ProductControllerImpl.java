@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
 @AllArgsConstructor
-public class ProductControllerImpl {
+public class ProductControllerImpl implements ProductController {
     private final ProductService service;
     private final ProductControllerMapper mapper;
 
-    @GetMapping("/{productId}/similar")
-    public ResponseEntity<List<ProductDetailRSDTO>> getSimilarProducts(
-            @PathVariable("productId") String productId
-    ) {
+    @Override
+    public ResponseEntity<List<ProductDetailRSDTO>> getSimilarProducts(String productId) {
         try {
             Integer.parseInt(productId);
         } catch (NumberFormatException e) {
