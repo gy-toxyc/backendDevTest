@@ -1,6 +1,7 @@
 package com.inditex.products.infrastructure.api.controller;
 
 import com.inditex.products.application.service.ProductService;
+import com.inditex.products.domain.exceptions.BadRequestException;
 import com.inditex.products.infrastructure.api.dto.out.ProductDetailRSDTO;
 import com.inditex.products.infrastructure.api.mapper.ProductControllerMapper;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 @AllArgsConstructor
-public class ProductController {
+public class ProductControllerImpl {
     private final ProductService service;
     private final ProductControllerMapper mapper;
 
@@ -23,6 +24,12 @@ public class ProductController {
     public ResponseEntity<List<ProductDetailRSDTO>> getSimilarProducts(
             @PathVariable("productId") String productId
     ) {
+        try {
+            Integer.parseInt(productId);
+        } catch (NumberFormatException e) {
+            throw new BadRequestException();
+        }
+
         final var products = service.getSimilarProducts(productId)
                 .stream()
                 .map(mapper::toRSDTO)
